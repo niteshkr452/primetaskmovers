@@ -1,325 +1,228 @@
-3.0.0 / 2024-07-25
+2.2.0 / 2025-03-26
 ==================
 
-  * deps: iconv-lite@0.6.3
-    - Fix HKSCS encoding to prefer Big5 codes
-    - Fix minor issue in UTF-32 decoder's endianness detection code
-    - Update 'gb18030' encoding to :2005 edition
+* Remove `setImmediate` support check
+* Restore `debug` dependency
 
-3.0.0-beta.1 / 2023-02-21
+2.1.0 / 2025-02-10
+==================
+
+* Updated `engines` field to Node@18 or higher
+* Remove `Object.setPrototypeOf` polyfill
+* Use `Array.flat` instead of `array-flatten` package
+* Replace `methods` dependency with standard library
+* deps: parseurl@^1.3.3
+* deps: is-promise@^4.0.0
+* Replace `utils-merge` dependency with `Object.assign`
+* deps: Remove unused dep `after`
+
+2.0.0 / 2024-09-09
+==================
+
+* Drop support for node <18
+* deps: path-to-regexp@^8.0.0
+  - Drop support for partial capture group `router.route('/user(s?)/:user/:op')` but still have optional non-capture `/user{s}/:user/:op`
+  - `:name?` becomes `{:name}`
+  - `:name*` becomes `*name`.
+  - The splat change also changes splat from strings to an array of strings
+  - Optional splats become `{*name}`
+  - `:name+` becomes `*name` and thus equivalent to `*name` so I dropped those tests
+  - Strings as regular expressions are fully removed, need to be converted to native regular expressions
+
+2.0.0-beta.2 / 2024-03-20
 =========================
 
-  * Change TypeScript argument to `NodeJS.ReadableStream` interface
-  * Drop support for Node.js 0.8
-  * deps: iconv-lite@0.5.2
-    - Add encoding cp720
-    - Add encoding UTF-32
+This incorporates all changes after 1.3.5 up to 1.3.8.
 
-2.5.2 / 2023-02-21
+  * Add support for returned, rejected Promises to `router.param`
+
+2.0.0-beta.1 / 2020-03-29
+=========================
+
+This incorporates all changes after 1.3.3 up to 1.3.5.
+
+  * Internalize private `router.process_params` method
+  * Remove `debug` dependency
+  * deps: array-flatten@3.0.0
+  * deps: parseurl@~1.3.3
+  * deps: path-to-regexp@3.2.0
+    - Add new `?`, `*`, and `+` parameter modifiers.
+    - Matching group expressions are only RegExp syntax.
+      `(*)` is no longer valid and must be written as `(.*)`, for example.
+    - Named matching groups no longer available by position in `req.params`.
+      `/:foo(.*)` only captures as `req.params.foo` and not available as
+      `req.params[0]`.
+    - Regular expressions can only be used in a matching group.
+      `/\\d+` is no longer valid and must be written as `/(\\d+)`.
+    - Matching groups are now literal regular expressions.
+      `:foo` named captures can no longer be included inside a capture group.
+    - Special `*` path segment behavior removed.
+      `/foo/*/bar` will match a literal `*` as the middle segment.
+  * deps: setprototypeof@1.2.0
+
+2.0.0-alpha.1 / 2018-07-27
+==========================
+
+  * Add basic support for returned, rejected Promises
+    - Rejected Promises from middleware functions `next(error)`
+  * Drop support for Node.js below 0.10
+  * deps: debug@3.1.0
+    - Add `DEBUG_HIDE_DATE` environment variable
+    - Change timer to per-namespace instead of global
+    - Change non-TTY date format
+    - Remove `DEBUG_FD` environment variable support
+    - Support 256 namespace colors
+
+1.3.8 / 2023-02-24
 ==================
 
-  * Fix error message for non-stream argument
+  * Fix routing requests without method
 
-2.5.1 / 2022-02-28
+1.3.7 / 2022-04-28
 ==================
 
-  * Fix error on early async hooks implementations
+  * Fix hanging on large stack of sync routes
 
-2.5.0 / 2022-02-21
+1.3.6 / 2021-11-15
 ==================
 
-  * Prevent loss of async hooks context
-  * Prevent hanging when stream is not readable
-  * deps: http-errors@2.0.0
-    - deps: depd@2.0.0
-    - deps: statuses@2.0.1
+  * Fix handling very large stacks of sync middleware
+  * deps: safe-buffer@5.2.1
 
-2.4.3 / 2022-02-14
+1.3.5 / 2020-03-24
 ==================
 
-  * deps: bytes@3.1.2
+  * Fix incorrect middleware execution with unanchored `RegExp`s
+  * perf: use plain object for internal method map
 
-2.4.2 / 2021-11-16
+1.3.4 / 2020-01-24
 ==================
 
-  * deps: bytes@3.1.1
-  * deps: http-errors@1.8.1
-    - deps: setprototypeof@1.2.0
-    - deps: toidentifier@1.0.1
+  * deps: array-flatten@3.0.0
+  * deps: parseurl@~1.3.3
+  * deps: setprototypeof@1.2.0
 
-2.4.1 / 2019-06-25
+1.3.3 / 2018-07-06
 ==================
 
-  * deps: http-errors@1.7.3
-    - deps: inherits@2.0.4
+  * Fix JSDoc for `Router` constructor
 
-2.4.0 / 2019-04-17
+1.3.2 / 2017-09-24
 ==================
 
-  * deps: bytes@3.1.0
-    - Add petabyte (`pb`) support
-  * deps: http-errors@1.7.2
-    - Set constructor name when possible
-    - deps: setprototypeof@1.1.1
-    - deps: statuses@'>= 1.5.0 < 2'
-  * deps: iconv-lite@0.4.24
-    - Added encoding MIK
+  * deps: debug@2.6.9
+  * deps: parseurl@~1.3.2
+    - perf: reduce overhead for full URLs
+    - perf: unroll the "fast-path" `RegExp`
+  * deps: setprototypeof@1.1.0
+  * deps: utils-merge@1.0.1
 
-2.3.3 / 2018-05-08
+1.3.1 / 2017-05-19
 ==================
 
-  * deps: http-errors@1.6.3
-    - deps: depd@~1.1.2
-    - deps: setprototypeof@1.1.0
-    - deps: statuses@'>= 1.3.1 < 2'
-  * deps: iconv-lite@0.4.23
-    - Fix loading encoding with year appended
-    - Fix deprecation warnings on Node.js 10+
+  * deps: debug@2.6.8
+    - Fix `DEBUG_MAX_ARRAY_LENGTH`
+    - deps: ms@2.0.0
 
-2.3.2 / 2017-09-09
+1.3.0 / 2017-02-25
 ==================
 
-  * deps: iconv-lite@0.4.19
-    - Fix ISO-8859-1 regression
-    - Update Windows-1255
+  * Add `next("router")` to exit from router
+  * Fix case where `router.use` skipped requests routes did not
+  * Use `%o` in path debug to tell types apart
+  * deps: setprototypeof@1.0.3
+  * perf: add fast match path for `*` route
 
-2.3.1 / 2017-09-07
+1.2.0 / 2017-02-17
 ==================
 
-  * deps: bytes@3.0.0
-  * deps: http-errors@1.6.2
-    - deps: depd@1.1.1
-  * perf: skip buffer decoding on overage chunk
+  * Skip routing when `req.url` is not set
+  * deps: debug@2.6.1
+    - Allow colors in workers
+    - Deprecated `DEBUG_FD` environment variable set to `3` or higher
+    - Fix error when running under React Native
+    - Use same color for same namespace
+    - deps: ms@0.7.2
 
-2.3.0 / 2017-08-04
+1.1.5 / 2017-01-28
 ==================
 
-  * Add TypeScript definitions
-  * Use `http-errors` for standard emitted errors
-  * deps: bytes@2.5.0
-  * deps: iconv-lite@0.4.18
-    - Add support for React Native
-    - Add a warning if not loaded as utf-8
-    - Fix CESU-8 decoding in Node.js 8
-    - Improve speed of ISO-8859-1 encoding
+  * deps: array-flatten@2.1.1
+  * deps: setprototypeof@1.0.2
+    - Fix using fallback even when native method exists
 
-2.2.0 / 2017-01-02
+1.1.4 / 2016-01-21
 ==================
 
-  * deps: iconv-lite@0.4.15
-    - Added encoding MS-31J
-    - Added encoding MS-932
-    - Added encoding MS-936
-    - Added encoding MS-949
-    - Added encoding MS-950
-    - Fix GBK/GB18030 handling of Euro character
+  * deps: array-flatten@2.0.0
+  * deps: methods@~1.1.2
+    - perf: enable strict mode
+  * deps: parseurl@~1.3.1
+    - perf: enable strict mode
 
-2.1.7 / 2016-06-19
+1.1.3 / 2015-08-02
 ==================
 
-  * deps: bytes@2.4.0
-  * perf: remove double-cleanup on happy path
+  * Fix infinite loop condition using `mergeParams: true`
+  * Fix inner numeric indices incorrectly altering parent `req.params`
+  * deps: array-flatten@1.1.1
+    - perf: enable strict mode
+  * deps: path-to-regexp@0.1.7
+    - Fix regression with escaped round brackets and matching groups
 
-2.1.6 / 2016-03-07
+1.1.2 / 2015-07-06
 ==================
 
-  * deps: bytes@2.3.0
-    - Drop partial bytes on all parsed units
-    - Fix parsing byte string that looks like hex
+  * Fix hiding platform issues with `decodeURIComponent`
+    - Only `URIError`s are a 400
+  * Fix using `*` before params in routes
+  * Fix using capture groups before params in routes
+  * deps: path-to-regexp@0.1.6
+  * perf: enable strict mode
+  * perf: remove argument reassignments in routing
+  * perf: skip attempting to decode zero length string
+  * perf: use plain for loops
 
-2.1.5 / 2015-11-30
+1.1.1 / 2015-05-25
 ==================
 
-  * deps: bytes@2.2.0
-  * deps: iconv-lite@0.4.13
+  * Fix issue where `next('route')` in `router.param` would incorrectly skip values
+  * deps: array-flatten@1.1.0
+  * deps: debug@~2.2.0
+    - deps: ms@0.7.1
 
-2.1.4 / 2015-09-27
+1.1.0 / 2015-04-22
 ==================
 
-  * Fix masking critical errors from `iconv-lite`
-  * deps: iconv-lite@0.4.12
-    - Fix CESU-8 decoding in Node.js 4.x
+  * Use `setprototypeof` instead of `__proto__`
+  * deps: debug@~2.1.3
+    - Fix high intensity foreground color for bold
+    - deps: ms@0.7.0
 
-2.1.3 / 2015-09-12
+1.0.0 / 2015-01-13
 ==================
 
-  * Fix sync callback when attaching data listener causes sync read
-    - Node.js 0.10 compatibility issue
+  * Fix crash from error within `OPTIONS` response handler
+  * deps: array-flatten@1.0.2
+    - Remove redundant code path
 
-2.1.2 / 2015-07-05
-==================
+1.0.0-beta.3 / 2015-01-11
+=========================
 
-  * Fix error stack traces to skip `makeError`
-  * deps: iconv-lite@0.4.11
-    - Add encoding CESU-8
+  * Fix duplicate methods appearing in OPTIONS responses
+  * Fix OPTIONS responses to include the HEAD method properly
+  * Remove support for leading colon in `router.param(name, fn)`
+  * Use `array-flatten` for flattening arrays
+  * deps: debug@~2.1.1
+  * deps: methods@~1.1.1
 
-2.1.1 / 2015-06-14
-==================
+1.0.0-beta.2 / 2014-11-19
+=========================
 
-  * Use `unpipe` module for unpiping requests
+  * Match routes iteratively to prevent stack overflows
 
-2.1.0 / 2015-05-28
-==================
+1.0.0-beta.1 / 2014-11-16
+=========================
 
-  * deps: iconv-lite@0.4.10
-    - Improved UTF-16 endianness detection
-    - Leading BOM is now removed when decoding
-    - The encoding UTF-16 without BOM now defaults to UTF-16LE when detection fails
-
-2.0.2 / 2015-05-21
-==================
-
-  * deps: bytes@2.1.0
-    - Slight optimizations
-
-2.0.1 / 2015-05-10
-==================
-
-  * Fix a false-positive when unpiping in Node.js 0.8
-
-2.0.0 / 2015-05-08
-==================
-
-  * Return a promise without callback instead of thunk
-  * deps: bytes@2.0.1
-    - units no longer case sensitive when parsing
-
-1.3.4 / 2015-04-15
-==================
-
-  * Fix hanging callback if request aborts during read
-  * deps: iconv-lite@0.4.8
-    - Add encoding alias UNICODE-1-1-UTF-7
-
-1.3.3 / 2015-02-08
-==================
-
-  * deps: iconv-lite@0.4.7
-    - Gracefully support enumerables on `Object.prototype`
-
-1.3.2 / 2015-01-20
-==================
-
-  * deps: iconv-lite@0.4.6
-    - Fix rare aliases of single-byte encodings
-
-1.3.1 / 2014-11-21
-==================
-
-  * deps: iconv-lite@0.4.5
-    - Fix Windows-31J and X-SJIS encoding support
-
-1.3.0 / 2014-07-20
-==================
-
-  * Fully unpipe the stream on error
-    - Fixes `Cannot switch to old mode now` error on Node.js 0.10+
-
-1.2.3 / 2014-07-20
-==================
-
-  * deps: iconv-lite@0.4.4
-    - Added encoding UTF-7
-
-1.2.2 / 2014-06-19
-==================
-
-  * Send invalid encoding error to callback
-
-1.2.1 / 2014-06-15
-==================
-
-  * deps: iconv-lite@0.4.3
-    - Added encodings UTF-16BE and UTF-16 with BOM
-
-1.2.0 / 2014-06-13
-==================
-
-  * Passing string as `options` interpreted as encoding
-  * Support all encodings from `iconv-lite`
-
-1.1.7 / 2014-06-12
-==================
-
-  * use `string_decoder` module from npm
-
-1.1.6 / 2014-05-27
-==================
-
-  * check encoding for old streams1
-  * support node.js < 0.10.6
-
-1.1.5 / 2014-05-14
-==================
-
-  * bump bytes
-
-1.1.4 / 2014-04-19
-==================
-
-  * allow true as an option
-  * bump bytes
-
-1.1.3 / 2014-03-02
-==================
-
-  * fix case when length=null
-
-1.1.2 / 2013-12-01
-==================
-
-  * be less strict on state.encoding check
-
-1.1.1 / 2013-11-27
-==================
-
-  * add engines
-
-1.1.0 / 2013-11-27
-==================
-
-  * add err.statusCode and err.type
-  * allow for encoding option to be true
-  * pause the stream instead of dumping on error
-  * throw if the stream's encoding is set
-
-1.0.1 / 2013-11-19
-==================
-
-  * dont support streams1, throw if dev set encoding
-
-1.0.0 / 2013-11-17
-==================
-
-  * rename `expected` option to `length`
-
-0.2.0 / 2013-11-15
-==================
-
-  * republish
-
-0.1.1 / 2013-11-15
-==================
-
-  * use bytes
-
-0.1.0 / 2013-11-11
-==================
-
-  * generator support
-
-0.0.3 / 2013-10-10
-==================
-
-  * update repo
-
-0.0.2 / 2013-09-14
-==================
-
-  * dump stream on bad headers
-  * listen to events after defining received and buffers
-
-0.0.1 / 2013-09-14
-==================
-
-  * Initial release
+  * Initial release ported from Express 4.x
+    - Altered to work without Express

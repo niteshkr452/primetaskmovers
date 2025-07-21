@@ -1,29 +1,59 @@
-# saslprep
+# ms
 
-_Note: This is a fork of the original [`saslprep`](https://www.npmjs.com/package/saslprep) npm package
-and provides equivalent functionality._
+![CI](https://github.com/vercel/ms/workflows/CI/badge.svg)
 
-Stringprep Profile for User Names and Passwords, [rfc4013](https://tools.ietf.org/html/rfc4013)
+Use this package to easily convert various time formats to milliseconds.
 
-### Usage
+## Examples
 
 ```js
-const saslprep = require('@mongodb-js/saslprep');
-
-saslprep('password\u00AD'); // password
-saslprep('password\u0007'); // Error: prohibited character
+ms('2 days')  // 172800000
+ms('1d')      // 86400000
+ms('10h')     // 36000000
+ms('2.5 hrs') // 9000000
+ms('2h')      // 7200000
+ms('1m')      // 60000
+ms('5s')      // 5000
+ms('1y')      // 31557600000
+ms('100')     // 100
+ms('-3 days') // -259200000
+ms('-1h')     // -3600000
+ms('-200')    // -200
 ```
 
-### API
+### Convert from Milliseconds
 
-##### `saslprep(input: String, opts: Options): String`
+```js
+ms(60000)             // "1m"
+ms(2 * 60000)         // "2m"
+ms(-3 * 60000)        // "-3m"
+ms(ms('10 hours'))    // "10h"
+```
 
-Normalize user name or password.
+### Time Format Written-Out
 
-##### `Options.allowUnassigned: bool`
+```js
+ms(60000, { long: true })             // "1 minute"
+ms(2 * 60000, { long: true })         // "2 minutes"
+ms(-3 * 60000, { long: true })        // "-3 minutes"
+ms(ms('10 hours'), { long: true })    // "10 hours"
+```
 
-A special behavior for unassigned code points, see https://tools.ietf.org/html/rfc4013#section-2.5. Disabled by default.
+## Features
 
-## License
+- Works both in [Node.js](https://nodejs.org) and in the browser
+- If a number is supplied to `ms`, a string with a unit is returned
+- If a string that contains the number is supplied, it returns it as a number (e.g.: it returns `100` for `'100'`)
+- If you pass a string with a number and a valid unit, the number of equivalent milliseconds is returned
 
-MIT, 2017-2019 (c) Dmitriy Tsvettsikh
+## Related Packages
+
+- [ms.macro](https://github.com/knpwrs/ms.macro) - Run `ms` as a macro at build-time.
+
+## Caught a Bug?
+
+1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device
+2. Link the package to the global module directory: `npm link`
+3. Within the module you want to test your local development instance of ms, just link it to the dependencies: `npm link ms`. Instead of the default one from npm, Node.js will now use your clone of ms!
+
+As always, you can run the tests using: `npm test`
