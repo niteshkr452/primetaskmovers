@@ -1,0 +1,19 @@
+{
+  "name": "prime-task-movers-website-main",
+  "version": "1.0.0",
+  "description": "The tools which have been used: Bootstrap (for responsiveness), AOS (for animations), and Google Analytics (for user tracking).",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.4",
+    "node": "^20.19.4"
+  }
+}
